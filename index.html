@@ -176,6 +176,65 @@
     }
     .admission-content h3 { color: var(--blue); margin-top: 1.5rem; }
 
+    /* Program cards with media */
+    .section-sub { text-align: center; color: #555; margin: -1rem auto 2rem; max-width: 650px; }
+    .pcard {
+      background: #fff; border-radius: 14px; overflow: hidden;
+      box-shadow: 0 3px 14px rgba(0,0,0,.1); display: flex; flex-direction: column;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .pcard:hover { transform: translateY(-7px); box-shadow: 0 12px 26px rgba(0,0,0,.18); }
+    .p-media {
+      height: 170px; position: relative; background-size: cover; background-position: center;
+      background-color: var(--blue);
+    }
+    .p-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,40,100,.05), rgba(0,40,100,.6)); }
+    /* Sariling larawan: ilagay sa folder na "images" ang bsis.jpg, bsma.jpg, bsca.jpg, bscrim.jpg, shs.jpg, jhs.jpg */
+    .p-media.bsis { background-image: url('images/bsis.jpg'), url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=70'), linear-gradient(135deg,#004aad,#1e7bd8); }
+    .p-media.bsma { background-image: url('images/bsma.jpg'), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=70'), linear-gradient(135deg,#004aad,#1e7bd8); }
+    .p-media.bsca { background-image: url('images/bsca.jpg'), url('https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=800&q=70'), linear-gradient(135deg,#004aad,#1e7bd8); }
+    .p-media.bscrim { background-image: url('images/bscrim.jpg'), url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=70'), linear-gradient(135deg,#004aad,#1e7bd8); }
+    .p-media.shs { background-image: url('images/shs.jpg'), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=70'), linear-gradient(135deg,#004aad,#1e7bd8); }
+    .p-media.jhs { background-image: url('images/jhs.jpg'), url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=70'), linear-gradient(135deg,#004aad,#1e7bd8); }
+    .p-badge {
+      position: absolute; left: 14px; bottom: 12px; z-index: 1;
+      background: var(--yellow); color: var(--blue-dark); font-weight: 800; font-size: .85rem;
+      padding: .25rem .8rem; border-radius: 20px; letter-spacing: .5px;
+    }
+    .tag-float { position: absolute; right: 12px; top: 12px; z-index: 1; margin: 0; }
+    .p-body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+    .p-body h3 { color: var(--blue); font-size: 1.1rem; margin-bottom: .5rem; }
+    .p-body p { font-size: .98rem; color: #444; flex: 1; }
+    .p-actions { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1.1rem; }
+    .pbtn {
+      flex: 1 1 auto; text-align: center; font: inherit; font-weight: 700; font-size: .9rem;
+      padding: .6rem 1rem; border-radius: 30px; cursor: pointer; border: 2px solid transparent;
+      transition: background-color .3s, color .3s, transform .3s;
+    }
+    .pbtn:hover { transform: translateY(-2px); }
+    .pbtn-main { background: var(--blue); color: #fff; }
+    .pbtn-main:hover { background: var(--blue-dark); color: #fff; }
+    .pbtn-fb { background: #fff; color: #1877f2; border-color: #1877f2; }
+    .pbtn-fb:hover { background: #1877f2; color: #fff; }
+
+    /* Facebook modal */
+    .fb-modal {
+      position: fixed; inset: 0; z-index: 2000; background: rgba(0,20,60,.8);
+      display: none; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .fb-modal.open { display: flex; animation: fadeIn .3s ease both; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .fb-modal-box {
+      background: #fff; border-radius: 14px; width: 100%; max-width: 560px; max-height: 92vh;
+      display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,.5);
+    }
+    .fb-modal-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1.1rem; background: var(--blue); color: #fff; }
+    .fb-modal-head h4 { font-size: 1.05rem; }
+    .fb-close { background: none; border: none; color: #fff; font-size: 1.8rem; line-height: 1; cursor: pointer; }
+    .fb-modal-body { padding: 1rem; overflow-y: auto; display: flex; justify-content: center; background: #f0f2f5; min-height: 240px; }
+    .fb-modal-body iframe { border: none; max-width: 100%; width: 500px; background: #fff; border-radius: 8px; }
+    .fb-modal-foot { padding: .8rem 1.1rem; text-align: center; border-top: 1px solid #e3e3e3; font-size: .9rem; }
+
     /* Admission tabs */
     .tabs { display: flex; gap: .6rem; flex-wrap: wrap; margin: .8rem 0 1.2rem; }
     .tab {
@@ -323,37 +382,80 @@
   <div class="container">
     <h2 id="programs-heading" class="reveal">Our Programs</h2>
     <div class="underline"></div>
+    <p class="section-sub reveal">Tap <strong>Latest Update</strong> to see the newest post from each program's Facebook page.</p>
 
-    <h3 class="group-title">College Programs</h3>
+    <h3 class="group-title">College Department</h3>
     <div class="program-list">
-      <div class="program-item reveal">
-        <h3>Bachelor of Science in Information Systems</h3>
-        <p>A degree program focused on the design, development, implementation, and management of computer-based systems and technology.</p>
-      </div>
-      <div class="program-item reveal">
-        <h3>Bachelor of Science in Management Accounting</h3>
-        <p>A degree program focused on applying accounting principles and practices to support business decision-making.</p>
-      </div>
-      <div class="program-item reveal">
-        <h3>Bachelor of Science in Customs Administration</h3>
-        <p>A degree program focused on the study of customs procedures, regulations, and policies.</p>
-      </div>
-      <div class="program-item reveal">
-        <h3>Bachelor of Science in Criminology <span class="tag">NEW</span></h3>
-        <p>A degree program focused on the study of crime, criminal behavior, and the criminal justice system.</p>
-      </div>
+      <article class="pcard reveal">
+        <div class="p-media bsis"><span class="p-badge">BSIS</span></div>
+        <div class="p-body">
+          <h3>Bachelor of Science in Information Systems</h3>
+          <p>Focuses on the design, development, implementation, and management of computer-based systems and technology.</p>
+          <div class="p-actions">
+            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/lslbalayanselect/photos/122266360670526333/" data-type="post" data-title="BSIS – Latest Update">📰 Latest Update</button>
+            <a class="pbtn pbtn-fb" href="https://www.facebook.com/lslbalayanselect/photos/122266360670526333/" target="_blank" rel="noopener">View on Facebook</a>
+          </div>
+        </div>
+      </article>
+      <article class="pcard reveal">
+        <div class="p-media bsma"><span class="p-badge">BSMA</span></div>
+        <div class="p-body">
+          <h3>Bachelor of Science in Management Accounting</h3>
+          <p>Focuses on applying accounting principles and practices to support business decision-making.</p>
+          <div class="p-actions">
+            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/lsl.jpia.balayan/photos/122172677990978243/" data-type="post" data-title="BSMA – Latest Update">📰 Latest Update</button>
+            <a class="pbtn pbtn-fb" href="https://www.facebook.com/lsl.jpia.balayan/photos/122172677990978243/" target="_blank" rel="noopener">View on Facebook</a>
+          </div>
+        </div>
+      </article>
+      <article class="pcard reveal">
+        <div class="p-media bsca"><span class="p-badge">BSCA</span></div>
+        <div class="p-body">
+          <h3>Bachelor of Science in Customs Administration</h3>
+          <p>Focuses on the study of customs procedures, regulations, and policies.</p>
+          <div class="p-actions">
+            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/61566996933302/posts/122222140352566564/" data-type="post" data-title="BSCA – Latest Update">📰 Latest Update</button>
+            <a class="pbtn pbtn-fb" href="https://www.facebook.com/61566996933302/posts/122222140352566564/" target="_blank" rel="noopener">View on Facebook</a>
+          </div>
+        </div>
+      </article>
+      <article class="pcard reveal">
+        <div class="p-media bscrim"><span class="p-badge">BSCrim</span><span class="tag tag-float">NEW</span></div>
+        <div class="p-body">
+          <h3>Bachelor of Science in Criminology</h3>
+          <p>Focuses on the study of crime, criminal behavior, and the criminal justice system.</p>
+          <div class="p-actions">
+            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/61580162781653/photos/122138434389005426/" data-type="post" data-title="BS Criminology – Latest Update">📰 Latest Update</button>
+            <a class="pbtn pbtn-fb" href="https://www.facebook.com/61580162781653/photos/122138434389005426/" target="_blank" rel="noopener">View on Facebook</a>
+          </div>
+        </div>
+      </article>
     </div>
 
-    <h3 class="group-title second">Basic Education</h3>
+    <h3 class="group-title second">High School Department</h3>
     <div class="program-list">
-      <div class="program-item reveal">
-        <h3>Senior High School</h3>
-        <p>Academic and Technical-Vocational tracks. Prepare for college or employment with flexible academic and skills-based pathways.</p>
-      </div>
-      <div class="program-item reveal">
-        <h3>Junior High School</h3>
-        <p>Grades 7 to 10 – the level between elementary and senior high school, building strong foundations in core subjects and values.</p>
-      </div>
+      <article class="pcard reveal">
+        <div class="p-media shs"><span class="p-badge">Grades 11–12</span></div>
+        <div class="p-body">
+          <h3>Senior High School</h3>
+          <p>Academic and Technical-Vocational tracks. Prepare for college or employment with flexible academic and skills-based pathways.</p>
+          <div class="p-actions">
+            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" data-type="page" data-title="High School Department – Updates">📰 Latest Updates</button>
+            <a class="pbtn pbtn-fb" href="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" target="_blank" rel="noopener">View on Facebook</a>
+          </div>
+        </div>
+      </article>
+      <article class="pcard reveal">
+        <div class="p-media jhs"><span class="p-badge">Grades 7–10</span></div>
+        <div class="p-body">
+          <h3>Junior High School</h3>
+          <p>Grades 7 to 10 – the level between elementary and senior high school, building strong foundations in core subjects and values.</p>
+          <div class="p-actions">
+            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" data-type="page" data-title="High School Department – Updates">📰 Latest Updates</button>
+            <a class="pbtn pbtn-fb" href="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" target="_blank" rel="noopener">View on Facebook</a>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -373,7 +475,7 @@
 
       <!-- TODO: I-verify ang High School requirements sa latest enrollment post ng LSL sa FB page. -->
       <div class="tab-panel active" id="panel-hs" role="tabpanel" aria-labelledby="tab-hs">
-        <p class="panel-note">For Junior High School (Grades 7–10) and Senior High School (Grades 11–12).</p>
+        <p class="panel-note">For Junior High School (Grades 7–10) and Senior High School (Grades 11–12). Check the <a href="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" target="_blank" rel="noopener">High School Department Facebook page</a> for the latest enrollment announcements.</p>
         <ul class="req-list">
           <li>Completed enrollment/application form (available at the school)</li>
           <li>Original Report Card (Form 138)</li>
@@ -457,6 +559,19 @@
   <p><a href="https://www.facebook.com/LyceumOfSouthernLuzonBalayan/" target="_blank" rel="noopener">Follow us on Facebook</a></p>
 </footer>
 
+<div class="fb-modal" id="fb-modal" role="dialog" aria-modal="true" aria-labelledby="fb-modal-title">
+  <div class="fb-modal-box">
+    <div class="fb-modal-head">
+      <h4 id="fb-modal-title">Latest Update</h4>
+      <button type="button" class="fb-close" id="fb-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="fb-modal-body" id="fb-modal-body"></div>
+    <div class="fb-modal-foot">
+      Can't see the post? <a id="fb-modal-link" href="#" target="_blank" rel="noopener">Open it on Facebook</a>
+    </div>
+  </div>
+</div>
+
 <button id="backToTopBtn" aria-label="Back to top" title="Back to top">↑</button>
 
 <script>
@@ -526,6 +641,30 @@
     const panel = document.getElementById(tab.dataset.target);
     panel.hidden = false; panel.classList.add('active');
   }));
+
+  // Facebook latest-update modal
+  const fbModal = document.getElementById('fb-modal');
+  const fbBody = document.getElementById('fb-modal-body');
+  const fbTitle = document.getElementById('fb-modal-title');
+  const fbLink = document.getElementById('fb-modal-link');
+  function openFb(url, type, title) {
+    const enc = encodeURIComponent(url);
+    const src = type === 'page'
+      ? 'https://www.facebook.com/plugins/page.php?href=' + enc + '&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false'
+      : 'https://www.facebook.com/plugins/post.php?href=' + enc + '&show_text=true&width=500';
+    fbBody.innerHTML = '';
+    const f = document.createElement('iframe');
+    f.src = src; f.title = title; f.height = type === 'page' ? '600' : '560';
+    f.allow = 'encrypted-media'; f.setAttribute('loading', 'lazy');
+    fbBody.appendChild(f);
+    fbTitle.textContent = title; fbLink.href = url;
+    fbModal.classList.add('open'); document.body.style.overflow = 'hidden';
+  }
+  function closeFb() { fbModal.classList.remove('open'); fbBody.innerHTML = ''; document.body.style.overflow = ''; }
+  document.querySelectorAll('[data-fb]').forEach(b => b.addEventListener('click', () => openFb(b.dataset.fb, b.dataset.type, b.dataset.title)));
+  document.getElementById('fb-close').addEventListener('click', closeFb);
+  fbModal.addEventListener('click', e => { if (e.target === fbModal) closeFb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFb(); });
 
   // Scroll reveal
   const io = new IntersectionObserver((entries, obs) => {
