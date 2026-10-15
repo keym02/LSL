@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Lyceum of Southern Luzon Inc. – Balayan Campus. Quality education and innovation in Balayan, Batangas." />
+  <title>Lyceum of Southern Luzon Inc. – Balayan Campus</title>
+  <style>
+    :root {
+      --blue: #004aad;
+      --blue-dark: #02397a;
+      --yellow: #f2c94c;
+      --yellow-dark: #d1a92a;
+      --text: #222;
+      --light: #f5f7fb;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.65;
+      background: #fff;
+      color: var(--text);
+    }
+    a { color: var(--blue); text-decoration: none; transition: color .3s ease; }
+    a:hover { color: var(--yellow-dark); }
+    img { max-width: 100%; display: block; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+    /* ---------- Header ---------- */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      z-index: 1000;
+      background: transparent;
+      transition: background .4s ease, box-shadow .4s ease, padding .4s ease;
+      padding: .9rem 0;
+    }
+    header.scrolled {
+      background: linear-gradient(90deg, var(--blue), var(--blue-dark));
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+      padding: .5rem 0;
+    }
+    nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .brand { display: flex; align-items: center; gap: .7rem; color: #fff; }
+    .brand img {
+      width: 54px; height: 54px; object-fit: contain;
+      background: #fff; border-radius: 50%; padding: 3px;
+      transition: width .4s, height .4s;
+    }
+    header.scrolled .brand img { width: 44px; height: 44px; }
+    .brand span { font-weight: 700; font-size: 1.15rem; letter-spacing: .5px; line-height: 1.2; }
+    .brand small { display: block; font-weight: 400; font-size: .75rem; opacity: .9; letter-spacing: 1px; }
+    nav ul { display: flex; list-style: none; gap: .3rem; }
+    nav ul li a {
+      color: #fff; font-weight: 600; font-size: .95rem;
+      padding: .45rem .9rem; border-radius: 30px; display: block;
+    }
+    nav ul li a:hover, nav ul li a.active { background: var(--yellow); color: var(--blue-dark); }
+    .menu-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      flex-direction: column; gap: 5px; padding: 6px;
+    }
+    .menu-toggle span { width: 26px; height: 3px; background: #fff; border-radius: 3px; transition: .3s; }
+    .menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* ---------- Cover / Hero slideshow ---------- */
+    #home {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; color: #fff; overflow: hidden;
+      background: var(--blue-dark);
+    }
+    .slides { position: absolute; inset: 0; z-index: 0; }
+    .slide {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      opacity: 0;
+      transition: opacity 1.8s ease-in-out;
+      transform: scale(1);
+    }
+    .slide.active { opacity: 1; animation: kenburns 9s ease-out forwards; }
+    @keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.08); } }
+    /*
+      Palitan ang cover1.jpg, cover2.jpg, cover3.jpg ng mga larawan mula sa FB cover/photos ng LSL.
+      Kung wala pa ang file, automatic na lalabas ang fallback na larawan.
+    */
+    .slide:nth-child(1) { background-image: url('cover1.jpg'), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80'); }
+    .slide:nth-child(2) { background-image: url('cover2.jpg'), url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=80'); }
+    .slide:nth-child(3) { background-image: url('cover3.jpg'), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80'); }
+    .overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(180deg, rgba(0,40,100,.75) 0%, rgba(0,74,173,.55) 50%, rgba(0,30,80,.85) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 800px; padding: 7rem 1.2rem 5rem;
+      animation: fadeUp 1.4s ease both;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+    .hero-logo {
+      width: 130px; height: 130px; object-fit: contain; margin: 0 auto 1.2rem;
+      background: #fff; border-radius: 50%; padding: 8px;
+      box-shadow: 0 0 0 5px var(--yellow), 0 10px 30px rgba(0,0,0,.4);
+    }
+    .hero-content .welcome { text-transform: uppercase; letter-spacing: 4px; font-size: 1rem; color: var(--yellow); font-weight: 600; }
+    .hero-content h1 { font-size: clamp(2rem, 5.5vw, 3.6rem); line-height: 1.15; margin: .5rem 0; text-shadow: 0 3px 15px rgba(0,0,0,.6); }
+    .hero-content h3 { font-weight: 500; font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .hero-content p { font-size: 1.2rem; margin-bottom: 2rem; text-shadow: 0 2px 8px rgba(0,0,0,.6); }
+    .btn {
+      display: inline-block; padding: .85rem 2rem; border-radius: 40px;
+      font-weight: 700; font-size: 1rem; margin: .3rem;
+      transition: transform .3s, background-color .3s, color .3s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-yellow { background: var(--yellow); color: var(--blue-dark); box-shadow: 0 5px 15px rgba(242,201,76,.5); }
+    .btn-yellow:hover { background: var(--yellow-dark); color: var(--blue-dark); }
+    .btn-outline { border: 2px solid #fff; color: #fff; }
+    .btn-outline:hover { background: #fff; color: var(--blue); }
+    .dots { position: absolute; bottom: 28px; left: 0; right: 0; z-index: 2; display: flex; justify-content: center; gap: 10px; }
+    .dots button {
+      width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff;
+      background: transparent; cursor: pointer; transition: .3s;
+    }
+    .dots button.active { background: var(--yellow); border-color: var(--yellow); transform: scale(1.2); }
+
+    /* ---------- Sections ---------- */
+    section.block { padding: 5rem 1rem; scroll-margin-top: 70px; }
+    section.block:nth-of-type(even) { background: var(--light); }
+    section.block h2 {
+      text-align: center; color: var(--blue);
+      font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: .6rem; letter-spacing: 1px;
+    }
+    .underline { width: 70px; height: 4px; background: var(--yellow); border-radius: 4px; margin: 0 auto 2.2rem; }
+    .narrow { max-width: 850px; margin: 0 auto; font-size: 1.08rem; }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .about-card {
+      background: #fff; border-radius: 12px; padding: 1.5rem;
+      border-top: 4px solid var(--yellow); box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+    .about-card h3 { color: var(--blue); margin-bottom: .5rem; }
+
+    /* Programs */
+    .program-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.6rem; }
+    .program-item {
+      background: #fff; border-radius: 12px; padding: 1.6rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+      border: 2px solid transparent; border-top: 5px solid var(--blue);
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      position: relative;
+    }
+    .program-item:hover { transform: translateY(-7px); box-shadow: 0 10px 22px rgba(0,0,0,.15); border-color: var(--yellow); border-top-color: var(--yellow); }
+    .program-item h3 { color: var(--blue); margin-bottom: .6rem; font-size: 1.15rem; }
+    .tag {
+      display: inline-block; background: var(--yellow); color: var(--blue-dark);
+      font-size: .7rem; font-weight: 800; padding: .15rem .6rem; border-radius: 20px;
+      margin-left: .4rem; vertical-align: middle; letter-spacing: .5px;
+    }
+    .group-title { text-align: center; color: #555; margin: 0 0 1.2rem; font-size: 1.2rem; }
+    .group-title.second { margin-top: 3rem; }
+
+    /* Admission */
+    .req-list { list-style: none; margin: 1rem 0 1.5rem; }
+    .req-list li {
+      background: #fff; padding: .8rem 1rem .8rem 2.8rem; margin-bottom: .6rem;
+      border-radius: 8px; position: relative; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+    }
+    .req-list li::before {
+      content: "✓"; position: absolute; left: 1rem; top: .75rem;
+      color: #fff; background: var(--blue); width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      font-size: .85rem; display: flex; align-items: center; justify-content: center;
+    }
+    .admission-content h3 { color: var(--blue); margin-top: 1.5rem; }
+
+    /* Admission tabs */
+    .tabs { display: flex; gap: .6rem; flex-wrap: wrap; margin: .8rem 0 1.2rem; }
+    .tab {
+      flex: 1 1 200px; padding: .85rem 1rem; border: 2px solid var(--blue); background: #fff;
+      color: var(--blue); font-weight: 700; font-size: 1rem; border-radius: 40px; cursor: pointer;
+      transition: background-color .3s, color .3s, transform .3s;
+    }
+    .tab:hover { transform: translateY(-2px); border-color: var(--yellow-dark); }
+    .tab.active { background: var(--blue); color: #fff; border-color: var(--blue); box-shadow: 0 5px 14px rgba(0,74,173,.35); }
+    .tab-panel { animation: fadeUp .5s ease both; }
+    .tab-panel[hidden] { display: none; }
+    .panel-note { color: #555; font-size: .95rem; margin-bottom: .6rem; font-style: italic; }
+
+    /* Facebook / News */
+    .fb-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; max-width: 950px; margin: 0 auto; }
+    .fb-text p { margin-bottom: 1.2rem; }
+    .fb-frame { display: flex; justify-content: center; }
+    .fb-frame iframe { border: none; overflow: hidden; max-width: 100%; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,.15); background: #fff; }
+    .btn-fb { background: #1877f2; color: #fff; }
+    .btn-fb:hover { background: #0f5fc9; color: #fff; }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.4rem; max-width: 1000px; margin: 0 auto; }
+    .contact-card {
+      background: #fff; border-radius: 12px; padding: 1.5rem; text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08); border-bottom: 4px solid var(--blue);
+    }
+    .contact-card .icon { font-size: 2rem; margin-bottom: .4rem; }
+    .contact-card h3 { color: var(--blue); margin-bottom: .4rem; }
+    .contact-card p, .contact-card a { word-break: break-word; }
+
+    /* Footer */
+    footer { background: var(--blue); color: #fff; text-align: center; padding: 1.6rem 1rem; font-size: .9rem; }
+    footer a { color: var(--yellow); }
+    footer p + p { margin-top: .3rem; opacity: .9; }
+
+    /* Back to top */
+    #backToTopBtn {
+      position: fixed; bottom: 28px; right: 28px; z-index: 1001;
+      background: var(--yellow); color: var(--blue-dark); border: none;
+      width: 48px; height: 48px; border-radius: 50%; font-size: 1.3rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,.3);
+      opacity: 0; pointer-events: none; transition: opacity .3s, background-color .3s;
+    }
+    #backToTopBtn.show { opacity: 1; pointer-events: auto; }
+    #backToTopBtn:hover { background: var(--yellow-dark); }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(25px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 860px) {
+      .menu-toggle { display: flex; }
+      nav ul {
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--blue); flex-direction: column; padding: .8rem 1rem 1.2rem;
+        display: none; box-shadow: 0 8px 16px rgba(0,0,0,.25);
+      }
+      nav ul.active { display: flex; }
+      nav ul li a { text-align: center; padding: .7rem; }
+      .brand span { font-size: 1rem; }
+      header { background: linear-gradient(90deg, var(--blue), var(--blue-dark)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .slide.active, .hero-content { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="top">
+  <div class="container">
+    <nav>
+      <a href="#home" class="brand" aria-label="Lyceum of Southern Luzon Inc. – Home">
+        <img src="logo.png" alt="Lyceum of Southern Luzon logo" />
+        <span>Lyceum of Southern Luzon Inc.<small>BALAYAN CAMPUS</small></span>
+      </a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul id="nav-list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#admission">Admission</a></li>
+        <li><a href="#updates">Updates</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- COVER -->
+<section id="home" aria-label="Welcome to Lyceum of Southern Luzon Inc.">
+  <div class="slides" id="slides">
+    <div class="slide active"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+  </div>
+  <div class="overlay"></div>
+
+  <div class="hero-content">
+    <img class="hero-logo" src="logo.png" alt="Lyceum of Southern Luzon logo" />
+    <p class="welcome">Welcome to</p>
+    <h1>Lyceum of Southern Luzon Inc.</h1>
+    <h3>Balayan Campus</h3>
+    <p>Empowering future leaders through quality education and innovation.</p>
+    <a href="#admission" class="btn btn-yellow">Enroll Now</a>
+    <a href="#about" class="btn btn-outline">Learn More</a>
+  </div>
+
+  <div class="dots" id="dots" aria-label="Cover slides"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="block" aria-labelledby="about-heading">
+  <div class="container">
+    <h2 id="about-heading" class="reveal">About Us</h2>
+    <div class="underline"></div>
+    <div class="narrow reveal">
+      <p>Lyceum of Southern Luzon Inc. is a premier institution committed to academic excellence and the holistic development of every student. Established to serve the people of Southern Luzon, we offer a vibrant learning environment with modern facilities, dedicated and experienced faculty, and a vision to shape future leaders and innovators.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <h3>🎓 Quality Education</h3>
+        <p>Programs designed to meet industry standards and prepare students for real-world careers.</p>
+      </div>
+      <div class="about-card reveal">
+        <h3>👩‍🏫 Dedicated Faculty</h3>
+        <p>Experienced educators who guide and support students in every step of their journey.</p>
+      </div>
+      <div class="about-card reveal">
+        <h3>🏫 Supportive Environment</h3>
+        <p>A safe and welcoming campus where students can learn, grow, and excel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs" class="block" aria-labelledby="programs-heading">
+  <div class="container">
+    <h2 id="programs-heading" class="reveal">Our Programs</h2>
+    <div class="underline"></div>
+
+    <h3 class="group-title">College Programs</h3>
+    <div class="program-list">
+      <div class="program-item reveal">
+        <h3>Bachelor of Science in Information Systems</h3>
+        <p>A degree program focused on the design, development, implementation, and management of computer-based systems and technology.</p>
+      </div>
+      <div class="program-item reveal">
+        <h3>Bachelor of Science in Management Accounting</h3>
+        <p>A degree program focused on applying accounting principles and practices to support business decision-making.</p>
+      </div>
+      <div class="program-item reveal">
+        <h3>Bachelor of Science in Customs Administration</h3>
+        <p>A degree program focused on the study of customs procedures, regulations, and policies.</p>
+      </div>
+      <div class="program-item reveal">
+        <h3>Bachelor of Science in Criminology <span class="tag">NEW</span></h3>
+        <p>A degree program focused on the study of crime, criminal behavior, and the criminal justice system.</p>
+      </div>
+    </div>
+
+    <h3 class="group-title second">Basic Education</h3>
+    <div class="program-list">
+      <div class="program-item reveal">
+        <h3>Senior High School</h3>
+        <p>Academic and Technical-Vocational tracks. Prepare for college or employment with flexible academic and skills-based pathways.</p>
+      </div>
+      <div class="program-item reveal">
+        <h3>Junior High School</h3>
+        <p>Grades 7 to 10 – the level between elementary and senior high school, building strong foundations in core subjects and values.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION -->
+<section id="admission" class="block" aria-labelledby="admission-heading">
+  <div class="container">
+    <h2 id="admission-heading" class="reveal">Admission</h2>
+    <div class="underline"></div>
+    <div class="narrow admission-content reveal">
+      <p>Join the Lyceum of Southern Luzon family! Admission is open to all qualified students who aspire to excel and grow in a supportive academic environment.</p>
+      <h3>Choose your department</h3>
+      <div class="tabs" role="tablist" aria-label="Admission department">
+        <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-hs" id="tab-hs" data-target="panel-hs">🏫 High School Department</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-college" id="tab-college" data-target="panel-college">🎓 College Department</button>
+      </div>
+
+      <!-- TODO: I-verify ang High School requirements sa latest enrollment post ng LSL sa FB page. -->
+      <div class="tab-panel active" id="panel-hs" role="tabpanel" aria-labelledby="tab-hs">
+        <p class="panel-note">For Junior High School (Grades 7–10) and Senior High School (Grades 11–12).</p>
+        <ul class="req-list">
+          <li>Completed enrollment/application form (available at the school)</li>
+          <li>Original Report Card (Form 138)</li>
+          <li>Learner's Permanent Record (Form 137) – to be requested by the school from the previous school</li>
+          <li>Certificate of Good Moral Character</li>
+          <li>Birth certificate (PSA authenticated), photocopy</li>
+          <li>2x2 ID photos</li>
+          <li>For Senior High School: Grade 10 completion certificate and chosen track (Academic or Technical-Vocational)</li>
+        </ul>
+      </div>
+
+      <!-- TODO: I-verify ang College requirements sa latest enrollment post ng LSL sa FB page. -->
+      <div class="tab-panel" id="panel-college" role="tabpanel" aria-labelledby="tab-college" hidden>
+        <p class="panel-note">For BS Information Systems, BS Management Accounting, BS Customs Administration, and BS Criminology.</p>
+        <ul class="req-list">
+          <li>Completed application form (available at the school or online)</li>
+          <li>Certified true copy of high school diploma or transcript of records</li>
+          <li>Birth certificate (PSA authenticated)</li>
+          <li>2x2 ID photos</li>
+          <li>Entrance examination or interview (schedule to be announced)</li>
+        </ul>
+      </div>
+      <p>For inquiries about admission schedules and procedures, please contact our Admissions Office or message us on our <a href="https://www.facebook.com/LyceumOfSouthernLuzonBalayan/" target="_blank" rel="noopener"><strong>Facebook page</strong></a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FACEBOOK / UPDATES -->
+<section id="updates" class="block" aria-labelledby="updates-heading">
+  <div class="container">
+    <h2 id="updates-heading" class="reveal">News &amp; Updates</h2>
+    <div class="underline"></div>
+    <div class="fb-wrap">
+      <div class="fb-text reveal">
+        <p>Stay up to date with announcements, enrollment schedules, events, and student activities. For more photos, videos, and other content, visit the official Lyceum of Southern Luzon – Balayan Facebook page.</p>
+        <a class="btn btn-fb" href="https://www.facebook.com/LyceumOfSouthernLuzonBalayan/" target="_blank" rel="noopener">Visit our Facebook Page</a>
+      </div>
+      <div class="fb-frame reveal">
+        <iframe
+          title="Lyceum of Southern Luzon Balayan Facebook Page"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLyceumOfSouthernLuzonBalayan%2F&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
+          width="340" height="500" loading="lazy" allow="encrypted-media"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="block" aria-labelledby="contact-heading">
+  <div class="container">
+    <h2 id="contact-heading" class="reveal">Contact Us</h2>
+    <div class="underline"></div>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <div class="icon">📍</div>
+        <h3>Address</h3>
+        <p>Brgy. Lanatan (in front of Western Batangas Medical Center), Balayan, Batangas, Philippines</p>
+      </div>
+      <div class="contact-card reveal">
+        <div class="icon">📞</div>
+        <h3>Phone</h3>
+        <p><a href="tel:+639275042221">0927 504 2221</a><br /><a href="tel:+63433320390">(043) 332 0390</a></p>
+      </div>
+      <div class="contact-card reveal">
+        <div class="icon">✉️</div>
+        <h3>Email</h3>
+        <p><a href="mailto:lyceumsouthernluzon2018@gmail.com">lyceumsouthernluzon2018@gmail.com</a></p>
+      </div>
+      <div class="contact-card reveal">
+        <div class="icon">👍</div>
+        <h3>Facebook</h3>
+        <p><a href="https://www.facebook.com/LyceumOfSouthernLuzonBalayan/" target="_blank" rel="noopener">Lyceum of Southern Luzon – Balayan</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Lyceum of Southern Luzon Inc. – Balayan Campus. All rights reserved.</p>
+  <p>Brgy. Lanatan (in front of Western Batangas Medical Center), Balayan, Batangas, Philippines | (043) 332 0390 | 0927 504 2221</p>
+  <p><a href="https://www.facebook.com/LyceumOfSouthernLuzonBalayan/" target="_blank" rel="noopener">Follow us on Facebook</a></p>
+</footer>
+
+<button id="backToTopBtn" aria-label="Back to top" title="Back to top">↑</button>
+
+<script>
+  // Cover slideshow with smooth crossfade
+  const slides = document.querySelectorAll('.slide');
+  const dotsWrap = document.getElementById('dots');
+  let current = 0, timer;
+
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', 'Show slide ' + (i + 1));
+    if (i === 0) b.classList.add('active');
+    b.addEventListener('click', () => { show(i); restart(); });
+    dotsWrap.appendChild(b);
+  });
+  const dots = dotsWrap.querySelectorAll('button');
+
+  function show(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+  function restart() { clearInterval(timer); timer = setInterval(() => show((current + 1) % slides.length), 6000); }
+  restart();
+
+  // Header style on scroll + back to top
+  const header = document.querySelector('header');
+  const topBtn = document.getElementById('backToTopBtn');
+  function onScroll() {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+    topBtn.classList.toggle('show', window.scrollY > 400);
+  }
+  window.addEventListener('scroll', onScroll); onScroll();
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Mobile menu
+  const toggle = document.getElementById('menu-toggle');
+  const navList = document.getElementById('nav-list');
+  toggle.addEventListener('click', () => {
+    const open = navList.classList.toggle('active');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+  });
+  navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navList.classList.remove('active'); toggle.classList.remove('open'); toggle.setAttribute('aria-expanded', false);
+  }));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const links = navList.querySelectorAll('a');
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => spy.observe(s));
+
+  // Admission department tabs
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.tab-panel');
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    panels.forEach(p => { p.classList.remove('active'); p.hidden = true; });
+    tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
+    const panel = document.getElementById(tab.dataset.target);
+    panel.hidden = false; panel.classList.add('active');
+  }));
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
