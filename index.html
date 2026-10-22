@@ -145,7 +145,7 @@
     .about-card h3 { color: var(--blue); margin-bottom: .5rem; }
 
     /* Programs */
-    .program-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.6rem; }
+    .program-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 1.6rem; align-items: start; }
     .program-item {
       background: #fff; border-radius: 12px; padding: 1.6rem;
       box-shadow: 0 2px 10px rgba(0,0,0,.08);
@@ -248,6 +248,62 @@
     .tab-panel[hidden] { display: none; }
     .panel-note { color: #555; font-size: .95rem; margin-bottom: .6rem; font-style: italic; }
 
+    /* Mission & Vision */
+    .mv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .mv-card {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: #fff;
+      border-radius: 14px; padding: 1.8rem; box-shadow: 0 6px 18px rgba(0,74,173,.25);
+      border-left: 6px solid var(--yellow);
+    }
+    .mv-card h3 { color: var(--yellow); margin-bottom: .6rem; font-size: 1.3rem; }
+    .mv-card p { font-size: 1.05rem; }
+    .mv-todo { opacity: .85; font-style: italic; }
+
+    /* Inline Facebook embeds */
+    .chip {
+      display: inline-block; background: var(--yellow); color: var(--blue-dark); font-weight: 800;
+      font-size: .8rem; padding: .2rem .8rem; border-radius: 20px; letter-spacing: .5px; margin-bottom: .6rem;
+    }
+    .p-top { padding: 1.3rem 1.4rem 1rem; }
+    .p-top h3 { color: var(--blue); font-size: 1.1rem; margin-bottom: .4rem; }
+    .p-top p { font-size: .96rem; color: #444; }
+    .p-pad { padding: 1rem 1.4rem 1.4rem; margin-top: 0; }
+    .fb-embed {
+      position: relative; display: flex; justify-content: center; overflow: hidden;
+      background: #f0f2f5; min-height: 320px; border-top: 1px solid #e3e6ee; border-bottom: 1px solid #e3e6ee;
+    }
+    .fb-embed::before {
+      content: "Loading Facebook post…"; position: absolute; inset: 0; display: flex; align-items: center;
+      justify-content: center; color: #777; font-size: .9rem;
+    }
+    .fb-embed iframe { position: relative; z-index: 1; border: none; max-width: 100%; background: #fff; }
+
+    /* Events */
+    #events .ev-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.2rem 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    #events .ev-head h2 {
+      text-align: left; margin: 0; font-family: Georgia, 'Times New Roman', serif; font-weight: 400;
+      font-size: clamp(2.6rem, 7vw, 4.2rem); line-height: 1; letter-spacing: 0; color: var(--blue);
+    }
+    .ev-filters { display: flex; flex-wrap: wrap; gap: .4rem .5rem; align-items: center; }
+    .ev-filter {
+      font: inherit; font-family: Georgia, 'Times New Roman', serif; font-size: 1rem; color: #333;
+      background: transparent; border: 1.5px solid transparent; border-radius: 30px;
+      padding: .4rem 1rem; cursor: pointer; transition: color .25s, border-color .25s, background-color .25s;
+    }
+    .ev-filter:hover { color: var(--blue); }
+    .ev-filter.active { color: var(--blue); border-color: var(--blue); background: #fff; }
+    .ev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 1.6rem; align-items: start; }
+    .ev-card {
+      background: #fff; border: 1px solid #e3e6ee; border-radius: 12px; overflow: hidden;
+      transition: transform .3s, box-shadow .3s, border-color .3s; animation: fadeUp .6s ease both;
+    }
+    .ev-card:hover { transform: translateY(-5px); box-shadow: 0 12px 26px rgba(0,0,0,.14); border-color: var(--yellow); }
+    .ev-top { padding: 1.1rem 1.3rem .9rem; }
+    .ev-title { color: #1a3fd1; font-size: 1.3rem; line-height: 1.25; font-weight: 400; }
+    .ev-org { color: #888; font-size: .82rem; font-weight: 600; margin-top: .25rem; }
+    .ev-empty { grid-column: 1 / -1; text-align: center; color: #666; padding: 2rem 0; }
+    .ev-more { text-align: center; margin-top: 2.2rem; }
+
     /* Facebook / News */
     .fb-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; max-width: 950px; margin: 0 auto; }
     .fb-text p { margin-bottom: 1.2rem; }
@@ -322,6 +378,7 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#programs">Programs</a></li>
+        <li><a href="#events">Events</a></li>
         <li><a href="#admission">Admission</a></li>
         <li><a href="#updates">Updates</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -344,7 +401,7 @@
     <p class="welcome">Welcome to</p>
     <h1>Lyceum of Southern Luzon Inc.</h1>
     <h3>Balayan Campus</h3>
-    <p>Creating Life's Champion!</p>
+    <p>Empowering future leaders through quality education and innovation.</p>
     <a href="#admission" class="btn btn-yellow">Enroll Now</a>
     <a href="#about" class="btn btn-outline">Learn More</a>
   </div>
@@ -374,6 +431,18 @@
         <p>A safe and welcoming campus where students can learn, grow, and excel.</p>
       </div>
     </div>
+    <div class="mv-grid">
+      <div class="mv-card reveal">
+        <h3>🎯 Our Vision</h3>
+        <!-- TODO: Ilagay ang OPISYAL na Vision ng LSL (mula sa student handbook o school office). -->
+        <p class="mv-todo">[Ilagay dito ang opisyal na Vision ng Lyceum of Southern Luzon.]</p>
+      </div>
+      <div class="mv-card reveal">
+        <h3>🚀 Our Mission</h3>
+        <!-- TODO: Ilagay ang OPISYAL na Mission ng LSL (mula sa student handbook o school office). -->
+        <p class="mv-todo">[Ilagay dito ang opisyal na Mission ng Lyceum of Southern Luzon.]</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -382,52 +451,56 @@
   <div class="container">
     <h2 id="programs-heading" class="reveal">Our Programs</h2>
     <div class="underline"></div>
-    <p class="section-sub reveal">Tap <strong>Latest Update</strong> to see the newest post from each program's Facebook page.</p>
+    <p class="section-sub reveal">Each program shows its latest post straight from its official Facebook page.</p>
 
     <h3 class="group-title">College Department</h3>
     <div class="program-list">
       <article class="pcard reveal">
-        <div class="p-media bsis"><span class="p-badge">BSIS</span></div>
-        <div class="p-body">
+        <div class="p-top">
+          <span class="chip">BSIS</span>
           <h3>Bachelor of Science in Information Systems</h3>
           <p>Focuses on the design, development, implementation, and management of computer-based systems and technology.</p>
-          <div class="p-actions">
-            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/lslbalayanselect/photos/122266360670526333/" data-type="post" data-title="BSIS – Latest Update">📰 Latest Update</button>
-            <a class="pbtn pbtn-fb" href="https://www.facebook.com/lslbalayanselect/photos/122266360670526333/" target="_blank" rel="noopener">View on Facebook</a>
-          </div>
+        </div>
+        <div class="fb-embed" data-embed="https://www.facebook.com/lslbalayanselect/photos/122266360670526333/" data-etype="post" aria-label="Latest Facebook post – Bachelor of Science in Information Systems"></div>
+        <div class="p-actions p-pad">
+          <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/lslbalayanselect/photos/122266360670526333/" data-type="post" data-title="Bachelor of Science in Information Systems – Facebook">⤢ Expand</button>
+          <a class="pbtn pbtn-fb" href="https://www.facebook.com/lslbalayanselect/photos/122266360670526333/" target="_blank" rel="noopener">View on Facebook</a>
         </div>
       </article>
       <article class="pcard reveal">
-        <div class="p-media bsma"><span class="p-badge">BSMA</span></div>
-        <div class="p-body">
+        <div class="p-top">
+          <span class="chip">BSMA</span>
           <h3>Bachelor of Science in Management Accounting</h3>
           <p>Focuses on applying accounting principles and practices to support business decision-making.</p>
-          <div class="p-actions">
-            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/lsl.jpia.balayan/photos/122172677990978243/" data-type="post" data-title="BSMA – Latest Update">📰 Latest Update</button>
-            <a class="pbtn pbtn-fb" href="https://www.facebook.com/lsl.jpia.balayan/photos/122172677990978243/" target="_blank" rel="noopener">View on Facebook</a>
-          </div>
+        </div>
+        <div class="fb-embed" data-embed="https://www.facebook.com/lsl.jpia.balayan/photos/122172677990978243/" data-etype="post" aria-label="Latest Facebook post – Bachelor of Science in Management Accounting"></div>
+        <div class="p-actions p-pad">
+          <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/lsl.jpia.balayan/photos/122172677990978243/" data-type="post" data-title="Bachelor of Science in Management Accounting – Facebook">⤢ Expand</button>
+          <a class="pbtn pbtn-fb" href="https://www.facebook.com/lsl.jpia.balayan/photos/122172677990978243/" target="_blank" rel="noopener">View on Facebook</a>
         </div>
       </article>
       <article class="pcard reveal">
-        <div class="p-media bsca"><span class="p-badge">BSCA</span></div>
-        <div class="p-body">
+        <div class="p-top">
+          <span class="chip">BSCA</span>
           <h3>Bachelor of Science in Customs Administration</h3>
           <p>Focuses on the study of customs procedures, regulations, and policies.</p>
-          <div class="p-actions">
-            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/61566996933302/posts/122222140352566564/" data-type="post" data-title="BSCA – Latest Update">📰 Latest Update</button>
-            <a class="pbtn pbtn-fb" href="https://www.facebook.com/61566996933302/posts/122222140352566564/" target="_blank" rel="noopener">View on Facebook</a>
-          </div>
+        </div>
+        <div class="fb-embed" data-embed="https://www.facebook.com/61566996933302/posts/122222140352566564/" data-etype="post" aria-label="Latest Facebook post – Bachelor of Science in Customs Administration"></div>
+        <div class="p-actions p-pad">
+          <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/61566996933302/posts/122222140352566564/" data-type="post" data-title="Bachelor of Science in Customs Administration – Facebook">⤢ Expand</button>
+          <a class="pbtn pbtn-fb" href="https://www.facebook.com/61566996933302/posts/122222140352566564/" target="_blank" rel="noopener">View on Facebook</a>
         </div>
       </article>
       <article class="pcard reveal">
-        <div class="p-media bscrim"><span class="p-badge">BSCrim</span><span class="tag tag-float">NEW</span></div>
-        <div class="p-body">
+        <div class="p-top">
+          <span class="chip">BSCrim</span><span class="tag">NEW</span>
           <h3>Bachelor of Science in Criminology</h3>
           <p>Focuses on the study of crime, criminal behavior, and the criminal justice system.</p>
-          <div class="p-actions">
-            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/61580162781653/photos/122138434389005426/" data-type="post" data-title="BS Criminology – Latest Update">📰 Latest Update</button>
-            <a class="pbtn pbtn-fb" href="https://www.facebook.com/61580162781653/photos/122138434389005426/" target="_blank" rel="noopener">View on Facebook</a>
-          </div>
+        </div>
+        <div class="fb-embed" data-embed="https://www.facebook.com/61580162781653/photos/122138434389005426/" data-etype="post" aria-label="Latest Facebook post – Bachelor of Science in Criminology"></div>
+        <div class="p-actions p-pad">
+          <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/61580162781653/photos/122138434389005426/" data-type="post" data-title="Bachelor of Science in Criminology – Facebook">⤢ Expand</button>
+          <a class="pbtn pbtn-fb" href="https://www.facebook.com/61580162781653/photos/122138434389005426/" target="_blank" rel="noopener">View on Facebook</a>
         </div>
       </article>
     </div>
@@ -435,25 +508,27 @@
     <h3 class="group-title second">High School Department</h3>
     <div class="program-list">
       <article class="pcard reveal">
-        <div class="p-media shs"><span class="p-badge">Grades 11–12</span></div>
-        <div class="p-body">
+        <div class="p-top">
+          <span class="chip">Grades 11–12</span>
           <h3>Senior High School</h3>
           <p>Academic and Technical-Vocational tracks. Prepare for college or employment with flexible academic and skills-based pathways.</p>
-          <div class="p-actions">
-            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" data-type="page" data-title="High School Department – Updates">📰 Latest Updates</button>
-            <a class="pbtn pbtn-fb" href="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" target="_blank" rel="noopener">View on Facebook</a>
-          </div>
+        </div>
+        <div class="fb-embed" data-embed="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" data-etype="page" aria-label="Latest Facebook post – Senior High School"></div>
+        <div class="p-actions p-pad">
+          <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" data-type="page" data-title="Senior High School – Facebook">⤢ Expand</button>
+          <a class="pbtn pbtn-fb" href="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" target="_blank" rel="noopener">View on Facebook</a>
         </div>
       </article>
       <article class="pcard reveal">
-        <div class="p-media jhs"><span class="p-badge">Grades 7–10</span></div>
-        <div class="p-body">
+        <div class="p-top">
+          <span class="chip">Grades 7–10</span>
           <h3>Junior High School</h3>
           <p>Grades 7 to 10 – the level between elementary and senior high school, building strong foundations in core subjects and values.</p>
-          <div class="p-actions">
-            <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" data-type="page" data-title="High School Department – Updates">📰 Latest Updates</button>
-            <a class="pbtn pbtn-fb" href="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" target="_blank" rel="noopener">View on Facebook</a>
-          </div>
+        </div>
+        <div class="fb-embed" data-embed="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" data-etype="page" aria-label="Latest Facebook post – Junior High School"></div>
+        <div class="p-actions p-pad">
+          <button type="button" class="pbtn pbtn-main" data-fb="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" data-type="page" data-title="Junior High School – Facebook">⤢ Expand</button>
+          <a class="pbtn pbtn-fb" href="https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/" target="_blank" rel="noopener">View on Facebook</a>
         </div>
       </article>
     </div>
@@ -500,6 +575,20 @@
       </div>
       <p>For inquiries about admission schedules and procedures, please contact our Admissions Office or message us on our <a href="https://www.facebook.com/LyceumOfSouthernLuzonBalayan/" target="_blank" rel="noopener"><strong>Facebook page</strong></a>.</p>
     </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events" class="block" aria-labelledby="events-heading">
+  <div class="container">
+    <div class="ev-head">
+      <h2 id="events-heading">Events</h2>
+      <div class="ev-filters" id="ev-filters" role="tablist" aria-label="Filter events by page"></div>
+    </div>
+    <div class="ev-grid" id="ev-grid" aria-live="polite"></div>
+    <p class="ev-more">
+      <a class="btn btn-fb" href="https://www.facebook.com/LyceumOfSouthernLuzonBalayan/" target="_blank" rel="noopener">See more on our Facebook Page</a>
+    </p>
   </div>
 </section>
 
@@ -665,6 +754,84 @@
   document.getElementById('fb-close').addEventListener('click', closeFb);
   fbModal.addEventListener('click', e => { if (e.target === fbModal) closeFb(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFb(); });
+
+  // ---------- Inline Facebook embeds (post/caption shown right away) ----------
+  function mountEmbed(el) {
+    if (el.dataset.mounted) return;
+    el.dataset.mounted = '1';
+    const url = encodeURIComponent(el.dataset.embed);
+    const type = el.dataset.etype || 'post';
+    const avail = Math.floor(el.clientWidth) || 350;
+    let src, h;
+    if (type === 'page') {
+      const w = Math.max(180, Math.min(500, avail)); h = 560;
+      src = 'https://www.facebook.com/plugins/page.php?href=' + url + '&tabs=timeline&width=' + w + '&height=' + h +
+            '&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false';
+    } else {
+      const w = Math.max(350, Math.min(750, avail)); h = 560;
+      src = 'https://www.facebook.com/plugins/post.php?href=' + url + '&show_text=true&width=' + w;
+    }
+    const f = document.createElement('iframe');
+    f.src = src; f.height = h; f.width = '100%'; f.title = el.getAttribute('aria-label') || 'Facebook';
+    f.allow = 'encrypted-media'; f.setAttribute('loading', 'lazy'); f.setAttribute('scrolling', 'yes');
+    el.appendChild(f);
+  }
+  const embedIO = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => { if (e.isIntersecting) { mountEmbed(e.target); obs.unobserve(e.target); } });
+  }, { rootMargin: '400px 0px' });
+  function watchEmbeds(root) { root.querySelectorAll('.fb-embed:not([data-mounted])').forEach(el => embedIO.observe(el)); }
+  watchEmbeds(document);
+
+  // ---------- Events ----------
+  /*
+    Ang bawat event card ay nagpapakita ng LIVE na timeline ng FB page (pinakabagong posts + caption).
+    Para magdagdag ng page: kopyahin ang isang { ... } at palitan ang page, title, org, url.
+  */
+  const EVENTS = [
+    { page: 'LSL Main', title: 'Lyceum of Southern Luzon – Latest Posts', org: 'Official Facebook Page',
+      url: 'https://www.facebook.com/LyceumOfSouthernLuzonBalayan/' },
+    { page: 'High School', title: 'High School Department – Latest Posts', org: 'LSL Balayan High School Department',
+      url: 'https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/' },
+    { page: 'BSIS', title: 'BSIS – Latest Posts', org: 'BS Information Systems Page',
+      url: 'https://www.facebook.com/lslbalayanselect/' },
+    { page: 'BSMA', title: 'BSMA – Latest Posts', org: 'BS Management Accounting Page',
+      url: 'https://www.facebook.com/lsl.jpia.balayan/' },
+    { page: 'BSCA', title: 'BSCA – Latest Posts', org: 'BS Customs Administration Page',
+      url: 'https://www.facebook.com/61566996933302' },
+    { page: 'BS Criminology', title: 'BS Criminology – Latest Posts', org: 'BS Criminology Page',
+      url: 'https://www.facebook.com/61580162781653' }
+  ];
+  const evGrid = document.getElementById('ev-grid');
+  const evFilters = document.getElementById('ev-filters');
+  function esc(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+  function renderEvents(filter) {
+    const list = EVENTS.filter(e => filter === 'All' || e.page === filter);
+    evGrid.innerHTML = list.length ? list.map((e, i) => `
+      <article class="ev-card" style="animation-delay:${i * 0.06}s">
+        <div class="ev-top">
+          <span class="chip">${esc(e.page)}</span>
+          <div class="ev-title">${esc(e.title)}</div>
+          <div class="ev-org">${esc(e.org)}</div>
+        </div>
+        <div class="fb-embed" data-embed="${esc(e.url)}" data-etype="page" aria-label="${esc(e.title)}"></div>
+        <div class="p-actions p-pad">
+          <a class="pbtn pbtn-fb" href="${esc(e.url)}" target="_blank" rel="noopener">View on Facebook</a>
+        </div>
+      </article>`).join('') : '<p class="ev-empty">No events posted yet. Check our Facebook page for updates.</p>';
+    watchEmbeds(evGrid);
+  }
+  ['All', ...new Set(EVENTS.map(e => e.page))].forEach((name, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'ev-filter' + (i === 0 ? ' active' : ''); b.textContent = name;
+    b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', i === 0);
+    b.addEventListener('click', () => {
+      evFilters.querySelectorAll('.ev-filter').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
+      b.classList.add('active'); b.setAttribute('aria-selected', 'true');
+      renderEvents(name);
+    });
+    evFilters.appendChild(b);
+  });
+  renderEvents('All');
 
   // Scroll reveal
   const io = new IntersectionObserver((entries, obs) => {
