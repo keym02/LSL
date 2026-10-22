@@ -248,17 +248,6 @@
     .tab-panel[hidden] { display: none; }
     .panel-note { color: #555; font-size: .95rem; margin-bottom: .6rem; font-style: italic; }
 
-    /* Mission & Vision */
-    .mv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.5rem; margin-top: 2rem; }
-    .mv-card {
-      background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: #fff;
-      border-radius: 14px; padding: 1.8rem; box-shadow: 0 6px 18px rgba(0,74,173,.25);
-      border-left: 6px solid var(--yellow);
-    }
-    .mv-card h3 { color: var(--yellow); margin-bottom: .6rem; font-size: 1.3rem; }
-    .mv-card p { font-size: 1.05rem; }
-    .mv-todo { opacity: .85; font-style: italic; }
-
     /* Inline Facebook embeds */
     .chip {
       display: inline-block; background: var(--yellow); color: var(--blue-dark); font-weight: 800;
@@ -303,6 +292,7 @@
     .ev-org { color: #888; font-size: .82rem; font-weight: 600; margin-top: .25rem; }
     .ev-empty { grid-column: 1 / -1; text-align: center; color: #666; padding: 2rem 0; }
     .ev-more { text-align: center; margin-top: 2.2rem; }
+    .ev-embed { min-height: 640px; }
 
     /* Facebook / News */
     .fb-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; max-width: 950px; margin: 0 auto; }
@@ -429,18 +419,6 @@
       <div class="about-card reveal">
         <h3>🏫 Supportive Environment</h3>
         <p>A safe and welcoming campus where students can learn, grow, and excel.</p>
-      </div>
-    </div>
-    <div class="mv-grid">
-      <div class="mv-card reveal">
-        <h3>🎯 Our Vision</h3>
-        <!-- TODO: Ilagay ang OPISYAL na Vision ng LSL (mula sa student handbook o school office). -->
-        <p class="mv-todo">[Ilagay dito ang opisyal na Vision ng Lyceum of Southern Luzon.]</p>
-      </div>
-      <div class="mv-card reveal">
-        <h3>🚀 Our Mission</h3>
-        <!-- TODO: Ilagay ang OPISYAL na Mission ng LSL (mula sa student handbook o school office). -->
-        <p class="mv-todo">[Ilagay dito ang opisyal na Mission ng Lyceum of Southern Luzon.]</p>
       </div>
     </div>
   </div>
@@ -764,16 +742,16 @@
     const avail = Math.floor(el.clientWidth) || 350;
     let src, h;
     if (type === 'page') {
-      const w = Math.max(180, Math.min(500, avail)); h = 560;
+      const w = Math.max(180, Math.min(500, avail)); h = parseInt(el.dataset.h) || 560;
       src = 'https://www.facebook.com/plugins/page.php?href=' + url + '&tabs=timeline&width=' + w + '&height=' + h +
-            '&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false';
+            '&small_header=true&adapt_container_width=true&hide_cover=' + (el.dataset.cover || 'false') + '&show_facepile=false';
     } else {
-      const w = Math.max(350, Math.min(750, avail)); h = 560;
+      const w = Math.max(350, Math.min(750, avail)); h = parseInt(el.dataset.h) || 560;
       src = 'https://www.facebook.com/plugins/post.php?href=' + url + '&show_text=true&width=' + w;
     }
     const f = document.createElement('iframe');
     f.src = src; f.height = h; f.width = '100%'; f.title = el.getAttribute('aria-label') || 'Facebook';
-    f.allow = 'encrypted-media'; f.setAttribute('loading', 'lazy'); f.setAttribute('scrolling', 'yes');
+    f.allow = 'encrypted-media'; f.setAttribute('loading', el.dataset.eager ? 'eager' : 'lazy'); f.setAttribute('scrolling', 'yes');
     el.appendChild(f);
   }
   const embedIO = new IntersectionObserver((entries, obs) => {
@@ -784,22 +762,23 @@
 
   // ---------- Events ----------
   /*
-    Ang bawat event card ay nagpapakita ng LIVE na timeline ng FB page (pinakabagong posts + caption).
-    Para magdagdag ng page: kopyahin ang isang { ... } at palitan ang page, title, org, url.
+    Bawat event card ay nagpapakita agad ng MISMONG post ng FB page (larawan + caption).
+    type: 'post' = isang partikular na post | 'page' = timeline ng page (pinakabagong posts)
+    Para magdagdag: kopyahin ang isang { ... }, palitan ang page, title, org, url, type.
   */
   const EVENTS = [
-    { page: 'LSL Main', title: 'Lyceum of Southern Luzon – Latest Posts', org: 'Official Facebook Page',
-      url: 'https://www.facebook.com/LyceumOfSouthernLuzonBalayan/' },
-    { page: 'High School', title: 'High School Department – Latest Posts', org: 'LSL Balayan High School Department',
-      url: 'https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/' },
-    { page: 'BSIS', title: 'BSIS – Latest Posts', org: 'BS Information Systems Page',
-      url: 'https://www.facebook.com/lslbalayanselect/' },
-    { page: 'BSMA', title: 'BSMA – Latest Posts', org: 'BS Management Accounting Page',
-      url: 'https://www.facebook.com/lsl.jpia.balayan/' },
-    { page: 'BSCA', title: 'BSCA – Latest Posts', org: 'BS Customs Administration Page',
-      url: 'https://www.facebook.com/61566996933302' },
-    { page: 'BS Criminology', title: 'BS Criminology – Latest Posts', org: 'BS Criminology Page',
-      url: 'https://www.facebook.com/61580162781653' }
+    { page: 'LSL Main', title: 'Lyceum of Southern Luzon – Balayan', org: 'Official Facebook Page',
+      url: 'https://www.facebook.com/LyceumOfSouthernLuzonBalayan/', type: 'page' },
+    { page: 'High School', title: 'High School Department', org: 'LSL Balayan High School Department',
+      url: 'https://www.facebook.com/p/LSL-Balayan-High-School-Department-61581396707064/', type: 'page' },
+    { page: 'BSIS', title: 'BS Information Systems', org: 'BSIS Facebook Page',
+      url: 'https://www.facebook.com/lslbalayanselect/photos/122266360670526333/', type: 'post' },
+    { page: 'BSMA', title: 'BS Management Accounting', org: 'BSMA Facebook Page',
+      url: 'https://www.facebook.com/lsl.jpia.balayan/photos/122172677990978243/', type: 'post' },
+    { page: 'BSCA', title: 'BS Customs Administration', org: 'BSCA Facebook Page',
+      url: 'https://www.facebook.com/61566996933302/posts/122222140352566564/', type: 'post' },
+    { page: 'BS Criminology', title: 'BS Criminology', org: 'BS Criminology Facebook Page',
+      url: 'https://www.facebook.com/61580162781653/photos/122138434389005426/', type: 'post' }
   ];
   const evGrid = document.getElementById('ev-grid');
   const evFilters = document.getElementById('ev-filters');
@@ -813,12 +792,12 @@
           <div class="ev-title">${esc(e.title)}</div>
           <div class="ev-org">${esc(e.org)}</div>
         </div>
-        <div class="fb-embed" data-embed="${esc(e.url)}" data-etype="page" aria-label="${esc(e.title)}"></div>
+        <div class="fb-embed ev-embed" data-embed="${esc(e.url)}" data-etype="${esc(e.type)}" data-h="640" data-cover="true" data-eager="1" aria-label="${esc(e.title)}"></div>
         <div class="p-actions p-pad">
           <a class="pbtn pbtn-fb" href="${esc(e.url)}" target="_blank" rel="noopener">View on Facebook</a>
         </div>
       </article>`).join('') : '<p class="ev-empty">No events posted yet. Check our Facebook page for updates.</p>';
-    watchEmbeds(evGrid);
+    evGrid.querySelectorAll('.fb-embed').forEach(mountEmbed);
   }
   ['All', ...new Set(EVENTS.map(e => e.page))].forEach((name, i) => {
     const b = document.createElement('button');
